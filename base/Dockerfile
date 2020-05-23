@@ -39,6 +39,14 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
 
 RUN /usr/local/hadoop/bin/hdfs namenode -format
 
+
+ADD scripts/bootstrap.sh /etc/bootstrap.sh
+RUN chown root:root /etc/bootstrap.sh
+RUN chmod 700 /etc/bootstrap.sh
+
+ENV BOOTSTRAP /etc/bootstrap.sh
+
+
 # Hdfs ports
 EXPOSE 9000 50010 50020 50070 50075 50090
 EXPOSE 9871 9870 9820 9869 9868 9867 9866 9865 9864
@@ -50,4 +58,4 @@ EXPOSE 8030 8031 8032 8033 8040 8042 8088 8188
 EXPOSE 49707 2122
 
 
-CMD [ "sh", "-c", "service ssh start; bash"]
+CMD ["/etc/bootstrap.sh", "-d"]

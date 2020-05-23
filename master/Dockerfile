@@ -3,7 +3,7 @@ MAINTAINER dvillaj@gmail.com
 
 WORKDIR /root
 
-ADD config/bootstrap.sh /etc/bootstrap.sh
+ADD scripts/bootstrap.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
 

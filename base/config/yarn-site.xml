@@ -12,4 +12,12 @@
         <name>yarn.resourcemanager.hostname</name>
         <value>hadoop-master</value>
     </property>
+    <property>
+        <name>yarn.log.server.url</name>
+        <value>http://history-server:19888/jobhistory/logs/</value>
+    </property>
+    <property>
+        <name>yarn.timeline-service.hostname</name>
+        <value>history-server</value>
+    </property>
 </configuration>

@@ -22,6 +22,8 @@ RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
 
 RUN mkdir -p /var/hadoop/hdfs/namenode && \ 
     mkdir -p /var/hadoop/hdfs/datanode && \
+    mkdir -p /var/hadoop/mr-history/tmp && \
+    mkdir -p /var/hadoop/mr-history/done && \
     mkdir $HADOOP_HOME/logs
 
 

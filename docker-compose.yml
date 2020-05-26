@@ -13,6 +13,15 @@ services:
     networks:
       - hadoop
 
+  history-server:
+    image: dvillaj/hadoop-cluster-history-server
+    build:
+      context: history-server
+    networks:
+      - hadoop      
+    ports:
+      - 19888:19888
+
   hadoop-master:
     image: dvillaj/hadoop-cluster-master
     build:
@@ -22,11 +31,11 @@ services:
     ports:
       - 50070:50070
       - 8088:8088
+      - 9000:9000
     depends_on:
+      - history-server
       - hadoop-slave1
       - hadoop-slave2
-    volumes:
-       - ./data:/data     
       
 networks:
   hadoop:

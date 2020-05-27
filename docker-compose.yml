@@ -24,11 +24,38 @@ services:
       - 8088:8088
     depends_on:
       - hadoop-slave1
-      - hadoop-slave2
-    volumes:
-       - ./data:/data     
+      - hadoop-slave2   
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'metastore'
+      MYSQL_USER: 'hive'
+      MYSQL_PASSWORD: '3MX6fDLN2AQm23bD'
+      MYSQL_ROOT_PASSWORD: 'UvwKXqnrfn27CNVz'
+    ports:
+      - 3306:3306
+    expose:
+      - '3306'
+
+  hive:
+    image: dvillaj/hive
+    build:
+      context: hive
+    networks:
+      - hadoop
+    depends_on:
+      - mysql
+      - hadoop-master
+
+    #volumes:
+    #   - hive_container:/data          
       
 networks:
   hadoop:
     driver: bridge
 
+
+#volumes:
+#  hive_container:

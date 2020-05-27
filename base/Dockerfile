@@ -33,12 +33,9 @@ RUN mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml && \
     mv /tmp/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml && \
     mv /tmp/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml && \
-    mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves && \
-    mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
-    chmod +x ~/start-hadoop.sh
+    mv /tmp/slaves $HADOOP_HOME/etc/hadoop/slaves
 
 RUN /usr/local/hadoop/bin/hdfs namenode -format
-
 
 ADD scripts/bootstrap.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh

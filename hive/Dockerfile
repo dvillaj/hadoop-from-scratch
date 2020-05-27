@@ -15,6 +15,9 @@ RUN wget -q https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java
     cp mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar /usr/local/hive/lib/ && \
     rm -rf mysql-connector-java-8.0.19*
 
+
+RUN apt install -y netcat
+
 ENV HIVE_HOME=/usr/local/hive
 ENV PATH=$PATH:/usr/local/hive/bin
 
@@ -24,6 +27,10 @@ RUN chown root:root /usr/local/hive/conf/hive-site.xml
 ADD scripts/bootstrap.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
+
+ADD scripts/wait-for-it.sh /usr/local/bin/wait-for-it.sh
+RUN chown root:root /usr/local/bin/wait-for-it.sh
+RUN chmod 700 /usr/local/bin/wait-for-it.sh
 
 ENV BOOTSTRAP /etc/bootstrap.sh
 

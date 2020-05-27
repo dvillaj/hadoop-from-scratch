@@ -29,6 +29,8 @@ services:
   mysql:
     image: mysql:5.7
     restart: always
+    networks:
+      - hadoop
     environment:
       MYSQL_DATABASE: 'metastore'
       MYSQL_USER: 'hive'
@@ -36,8 +38,6 @@ services:
       MYSQL_ROOT_PASSWORD: 'UvwKXqnrfn27CNVz'
     ports:
       - 3306:3306
-    expose:
-      - '3306'
 
   hive:
     image: dvillaj/hive

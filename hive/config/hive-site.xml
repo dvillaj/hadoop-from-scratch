@@ -34,10 +34,6 @@
       <value>10002</value>
    </property>
    <property>
-      <name>hive.server2.enable.doAs</name>
-      <value>true</value>
-   </property>
-   <property>
       <name>hive.execution.engine</name>
       <value>mr</value>
    </property>
@@ -45,4 +41,11 @@
       <name>hive.metastore.port</name>
       <value>9083</value>
    </property>
+   <property>
+      <name>hive.server2.enable.doAs</name>
+      <value>false</value>
+      <description>
+         Setting this property to true will have HiveServer2 execute Hive operations as the user making the calls to it.
+      </description>
+</property> 
 </configuration>

@@ -22,6 +22,7 @@ services:
     ports:
       - 50070:50070
       - 8088:8088
+      - 9000:9000
     depends_on:
       - hadoop-slave1
       - hadoop-slave2   
@@ -48,6 +49,10 @@ services:
     depends_on:
       - mysql
       - hadoop-master
+    ports:
+      - 10000:10000
+      - 10002:10002
+      - 9083:9083
 
     #volumes:
     #   - hive_container:/data          

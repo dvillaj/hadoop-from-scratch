@@ -15,7 +15,6 @@ RUN wget -q https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java
     cp mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar /usr/local/hive/lib/ && \
     rm -rf mysql-connector-java-8.0.19*
 
-
 RUN apt install -y netcat
 
 ENV HIVE_HOME=/usr/local/hive

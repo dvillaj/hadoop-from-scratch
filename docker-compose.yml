@@ -6,19 +6,23 @@ services:
     build:
       context: base
     networks:
-      - hadoop
+      - global-network
+    ports:
+      - 8042
 
   hadoop-slave2:
     image: dvillaj/hadoop-cluster-base
     networks:
-      - hadoop
+      - global-network
+    ports:
+      - 8042
 
   hadoop-master:
     image: dvillaj/hadoop-cluster-master
     build:
       context: master
     networks:
-      - hadoop
+      - global-network
     ports:
       - 50070:50070
       - 8088:8088
@@ -31,7 +35,7 @@ services:
     image: mysql:5.7
     restart: always
     networks:
-      - hadoop
+      - global-network
     environment:
       MYSQL_DATABASE: 'metastore'
       MYSQL_USER: 'hive'
@@ -45,7 +49,7 @@ services:
     build:
       context: hive
     networks:
-      - hadoop
+      - global-network
     depends_on:
       - mysql
       - hadoop-master
@@ -56,9 +60,38 @@ services:
 
     #volumes:
     #   - hive_container:/data          
+
+  spark-master:
+    image: dvillaj/spark-master
+    build:
+      context: spark-master
+    ports:
+      - 8080:8080
+      - 7077:7077
+    environment: 
+      - "SPARK_LOCAL_IP=spark-master"
+      - "SPARK_MASTER_PORT=7077"
+      - "SPARK_MASTER_WEBUI_PORT=8080"
+    networks:
+      - global-network
+
+  spark-worker:
+    build:
+      context: spark-worker
+    depends_on:
+      - spark-master
+    env_file:
+      - spark-worker.env
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_WEBUI_PORT=8080
+    ports:
+      - 8080
+    networks:
+      - global-network
       
 networks:
-  hadoop:
+  global-network:
     driver: bridge
 
 

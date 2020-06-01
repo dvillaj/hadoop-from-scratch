@@ -12,9 +12,15 @@ RUN wget --quiet http://apache.rediris.es/hadoop/common/hadoop-${HADOOP_VERSION}
     ln -s /usr/local/hadoop-${HADOOP_VERSION} /usr/local/hadoop && \
     rm hadoop-${HADOOP_VERSION}.tar.gz
 
+
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 
-ENV HADOOP_HOME=/usr/local/hadoop 
-ENV PATH=/usr/local/hadoop/bin:/usr/local/hadoop/sbin:$PATH
+ENV HADOOP_HOME=/usr/local/hadoop
+ENV HADOOP_MAPRED_HOME=$HADOOP_HOME
+ENV HADOOP_COMMON_HOME=$HADOOP_HOME
+ENV YARN_HOME=$HADOOP_HOME
+ENV HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOMEE/lib/native
+ENV LD_LIBRARY_PATH=$HADOOP_HOME/lib/native:$LD_LIBRARY_PATH
+ENV PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HADOOP_HOME/binexport:$PATH
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
@@ -42,7 +48,6 @@ RUN chown root:root /etc/bootstrap.sh
 RUN chmod 700 /etc/bootstrap.sh
 
 ENV BOOTSTRAP /etc/bootstrap.sh
-
 
 # Hdfs ports
 EXPOSE 9000 50010 50020 50070 50075 50090
